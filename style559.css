@@ -1,5 +1,14 @@
 /*** Style Sheet for the 559 Tutorials ***/
 
+/** We always like to put borders around Canvas and SVG */
+canvas {
+    border: 2px solid black;
+}
+
+svg {
+    border: 2px solid black;
+}
+
 /** overall, use sans-serif fonts since they look nicer */
 body {
     font-family: Calibri, Helvetica, sans-serif;
@@ -12,7 +21,7 @@ body {
     border: 2px solid black;
     border-radius: 10px;
     padding: 0px 10px 0px 10px;
-    margin: 15px 5px 15px 5px; 
+    margin: 15px 5px 15px 5px;
 }
 
 /** make the summaries a little different */
@@ -20,21 +29,21 @@ body {
     border: 2px solid black;
     border-radius: 10px;
     padding: 0px 10px 0px 10px;
-    margin: 15px 5px 15px 5px; 
+    margin: 15px 5px 15px 5px;
 }
 
 /** simple box for text */
 .simplebox {
     border: 2px solid black;
     padding: 5px 5px 5px 5px;
-    margin: 5px 5px 5px 5px; 
+    margin: 5px 5px 5px 5px;
     width: 500px;
 }
 
 .halfbox {
     border: 2px solid black;
     padding: 5px 5px 5px 5px;
-    margin: 5px 5px 5px 5px; 
+    margin: 5px 5px 5px 5px;
     width: 45%;
 }
 
@@ -64,6 +73,3 @@ body {
     color: white;
     background-color: darkgray;
 }
-
-
-
