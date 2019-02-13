@@ -21,10 +21,9 @@ function insertAfter(el, referenceNode) {
  * the main thing is implemented as a class in case you want access to everything
  */
 export class RunCanvas {
-    constructor(canvasName,drawFunc,step=.01,noLoop=false) {
+    constructor(canvasName,drawFunc,noLoop=false) {
         this.canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasName));
         this.canvasName = canvasName;
-        this.step=step;
         this.drawFunc = drawFunc;
         this.noloop = noLoop;
 
@@ -36,7 +35,8 @@ export class RunCanvas {
         this.range.id = canvasName + "-slider";
         this.range.setAttribute("type","range");
         this.range.style.width = String(this.canvas.width - 50 - 20);
-        this.setupSlider(0,1,step);
+        // give default values for range
+        this.setupSlider(0,1,0.01);
 
         this.text = document.createElement("input");
         this.text.id = canvasName+"-text";
@@ -74,7 +74,6 @@ export class RunCanvas {
      * @param {Number} step 
      */
     setupSlider(min,max,step) {
-        this.step = step;
         this.range.setAttribute("min",String(min));
         this.range.setAttribute("max",String(max));
         this.range.setAttribute("step",String(step));
@@ -90,14 +89,16 @@ export class RunCanvas {
     }
 
     advance() {
-        let value = Number(this.range.value) + this.step;
+        let maxV = Number(this.range.max);
+        let stepV = Number(this.range.step);
+        let value = Number(this.range.value) + stepV;
         if (this.noloop) {
-            if (value >= 1) {
+            if (value >= maxV) {
                 this.runbutton.checked = false;
             }
-            value = Math.min(1,value);
+            value = Math.min(maxV,value);
         } else {
-            value = value % 1;
+            value = value % maxV;
         }
         this.setValue(value);
         if (this.runbutton.checked) {
@@ -109,7 +110,9 @@ export class RunCanvas {
 }
 
 /**
- * simple entry point - give it the name of a canvas
+ * simple entry point - give it the name of a canvas, and it guesses the rest
+ * but it also loses access to all the parameters
+ * 
  * @param {string} canvasName 
  * @param {function(HTMLCanvasElement, Number) : any} [drawFunc]
  */ 
@@ -118,7 +121,7 @@ export function runCanvas(canvasName, drawFunc = undefined, initial=0.5, noloop=
 
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasName));
 
-    let rc = new RunCanvas(canvasName,drawFunc,.01,noloop);
+    let rc = new RunCanvas(canvasName,drawFunc,noloop);
     rc.setValue(initial);
  }
 
