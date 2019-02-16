@@ -16,12 +16,14 @@
   * If the redraw is called by something else (e.g., and animation loop) it
   * can be set to null
   * 
-  * @param {HTMLCanvasElement} canvas 
-  * @param {Array<Array<number>>} pointList 
-  * @param {?FrameRequestCallback} redraw 
-  * @param {number} [circleRadius =10]
+  * @param {HTMLCanvasElement} canvas - canvas to attach to
+  * @param {Array<Array<number>>} pointList - list of points
+  * @param {?FrameRequestCallback} redraw - function to be called when things change
+  * @param {number} [circleRadius =10] - radius of circles (for hit testing)
+  * @param {function} [changeNumber=undefined] - function to call if the number of points changes    
+  }}
   */
-export function draggablePoints(canvas, pointList, redraw, circleRadius)
+export function draggablePoints(canvas, pointList, redraw, circleRadius=10,changeNumber=undefined)
 {
     // keep state within the closure of the function
     let theCanvas = canvas;
@@ -100,6 +102,7 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius)
                 // the harder part is what position
                 let xy = mousePosition(evt);
                 thePoints.push(xy);
+                if (changeNumber) changeNumber();
                 doRedraw();
             }
         } else if (evt.ctrlKey) {
@@ -108,6 +111,7 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius)
                 let select = pickPoint(evt);
                 if (select>=0) {
                     thePoints.splice(select,1);
+                    if (changeNumber) changeNumber();
                     doRedraw();
                 }
             }

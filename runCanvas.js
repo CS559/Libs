@@ -21,8 +21,33 @@ function insertAfter(el, referenceNode) {
  * the main thing is implemented as a class in case you want access to everything
  */
 export class RunCanvas {
-    constructor(canvasName,drawFunc,noLoop=false) {
-        this.canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasName));
+    /**
+     * 
+     * @param {HTMLCanvasElement|string} canvasNameOrCanvas 
+     * @param {*} drawFunc 
+     * @param {*} noLoop 
+     */
+    constructor(canvasNameOrCanvas,drawFunc,noLoop=false) {
+        /* so often, we pass the wrong thing - so make it work either way */
+        let canvas = undefined;
+        let canvasName = undefined;
+        if (canvasNameOrCanvas instanceof(HTMLCanvasElement)) {
+            canvas = canvasNameOrCanvas;
+            canvasName = canvas.id;
+        } else {
+            canvasName = canvasNameOrCanvas;
+            canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasName));
+        }
+        if (!canvas) {
+            throw "RunCanvas without a Canvas to attach to!";
+        }
+        if (!canvasName) {
+            canvasName = "canvas-"+performance.now().toString();
+            console.log("RunCanvas with an unnamed canvas - naming it "+canvasName);
+            canvas.id = canvasName;
+        }
+
+        this.canvas = canvas;
         this.canvasName = canvasName;
         this.drawFunc = drawFunc;
         this.noloop = noLoop;
