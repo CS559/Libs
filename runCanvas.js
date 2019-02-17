@@ -73,11 +73,15 @@ export class RunCanvas {
         this.runbutton.id=canvasName + "-run";
         this.runbutton.setAttribute("type","checkbox");
         this.runbutton.style.width="20px";
-     
+
+        this.br2 = document.createElement("br");
+        this.br2.id = canvasName + "-br2";
+        
         insertAfter(this.br, this.canvas);
         insertAfter(this.runbutton, this.br);
         insertAfter(this.text, this.runbutton);
         insertAfter(this.range,this.text);
+        insertAfter(this.br2,this.range);
 
         let self = this;
         this.runbutton.onchange = function () { 
