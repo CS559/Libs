@@ -29,8 +29,8 @@ export class RunCanvas {
      */
     constructor(canvasNameOrCanvas,drawFunc,noLoop=false) {
         /* so often, we pass the wrong thing - so make it work either way */
-        let canvas = undefined;
-        let canvasName = undefined;
+        let canvas;     //  = undefined
+        let canvasName; //  = undefined
         if (canvasNameOrCanvas instanceof(HTMLCanvasElement)) {
             canvas = canvasNameOrCanvas;
             canvasName = canvas.id;
@@ -47,7 +47,7 @@ export class RunCanvas {
             canvas.id = canvasName;
         }
 
-        this.canvas = canvas;
+        this.canvas = /** @type {HTMLCanvasElement} */ (canvas);
         this.canvasName = canvasName;
         this.drawFunc = drawFunc;
         this.noloop = noLoop;
@@ -59,20 +59,20 @@ export class RunCanvas {
         this.range = document.createElement("input");
         this.range.id = canvasName + "-slider";
         this.range.setAttribute("type","range");
-        this.range.style.width = String(this.canvas.width - 50 - 20);
+        this.range.style.width = String(this.canvas.width - 50 - 20 -10)+"px";
         // give default values for range
         this.setupSlider(0,1,0.01);
 
         this.text = document.createElement("input");
         this.text.id = canvasName+"-text";
         this.text.setAttribute("type","text");
-        this.text.style.width = "50";
+        this.text.style.width = "50px";
         this.text.setAttribute("readonly","1");
 
         this.runbutton = document.createElement("input");
         this.runbutton.id=canvasName + "-run";
         this.runbutton.setAttribute("type","checkbox");
-        this.runbutton.width=20;
+        this.runbutton.style.width="20px";
      
         insertAfter(this.br, this.canvas);
         insertAfter(this.runbutton, this.br);
@@ -128,7 +128,7 @@ export class RunCanvas {
         this.setValue(value);
         if (this.runbutton.checked) {
             let self=this;
-            window.requestAnimationFrame(function () {self.advance()} );
+            window.requestAnimationFrame(function () {self.advance();} );
         }
     }
 
