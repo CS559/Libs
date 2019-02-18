@@ -73,3 +73,15 @@ body {
     color: white;
     background-color: darkgray;
 }
+
+/** very plain tables */
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+th,td {
+  padding:3px;
+}
