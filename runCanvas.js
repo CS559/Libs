@@ -5,6 +5,9 @@
  *  Simple version of an auto-update slider to have looping time
  *
  * Designed for making quick UIs for CS559 demos
+ * 
+ * Students are welcome to read the code to understand it, but are not
+ * expected to modify this file.
  */
 
  // useful utility function for creating HTML
@@ -142,15 +145,12 @@ export class RunCanvas {
  * simple entry point - give it the name of a canvas, and it guesses the rest
  * but it also loses access to all the parameters
  * 
- * @param {string} canvasName 
+ * @param {HTMLCanvasElement|string} canvasName 
  * @param {function(HTMLCanvasElement, Number) : any} [drawFunc]
  */ 
-export function runCanvas(canvasName, drawFunc = undefined, initial=0.5, noloop=false) {
-    let step = 0.01;
-
-    let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasName));
-
+export function runCanvas(canvasName, drawFunc = undefined, initial=0.5, noloop=false, min=0, max=1, step=0.02) {
     let rc = new RunCanvas(canvasName,drawFunc,noloop);
+    rc.setupSlider(min,max,step);
     rc.setValue(initial);
  }
 
