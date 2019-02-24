@@ -84,7 +84,12 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius=10,chang
    
     // mouse click - perform dragging 
     // if shift is held down, make a new point
-    // if ctrl is held down, delete the point
+    // if ctrl or meta is held down, delete the point
+    // we need to do meta for the mac, where ctrl means something
+    /**
+     * 
+     * @param {MouseEvent} evt 
+     */
     function mouseDown(evt) {
         if (evt.shiftKey) {
             // we need to decide where to put the point
@@ -105,7 +110,7 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius=10,chang
                 if (changeNumber) changeNumber();
                 doRedraw();
             }
-        } else if (evt.ctrlKey) {
+        } else if (evt.ctrlKey || evt.metaKey) {
             // do not delete the only point
             if (thePoints.length > 1) {
                 let select = pickPoint(evt);
