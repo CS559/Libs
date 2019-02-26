@@ -1,26 +1,29 @@
-/*jshint esversion: 6 */ 
+/*jshint esversion: 6 */
 // @ts-check
 /**
  *  Simple thing to make a list of points in a Canvas draggable
  *
  * Designed for making quick UIs for CS559 demos
+ *
+ * students are welcome to read this code and use it, but they should not
+ * modify it unless instructed to by course staff
  */
 
  /**
   * Set up Draggable Points for an HTML Canvas
   * pass in the array of point positions (which it will change in the future)
   * and this will add the appropriate event handlers to the Canvas
-  * 
+  *
   * The "redraw" function is called for any event that changes the state of
   * the points (mouse down, up, move).
   * If the redraw is called by something else (e.g., and animation loop) it
   * can be set to null
-  * 
+  *
   * @param {HTMLCanvasElement} canvas - canvas to attach to
   * @param {Array<Array<number>>} pointList - list of points
   * @param {?FrameRequestCallback} redraw - function to be called when things change
   * @param {number} [circleRadius =10] - radius of circles (for hit testing)
-  * @param {function} [changeNumber=undefined] - function to call if the number of points changes    
+  * @param {function} [changeNumber=undefined] - function to call if the number of points changes
   }}
   */
 export function draggablePoints(canvas, pointList, redraw, circleRadius=10,changeNumber=undefined)
@@ -60,13 +63,13 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius=10,chang
         return [x,y];
     }
 
-    // select the point nearest to the mouse 
+    // select the point nearest to the mouse
     // note that this returns the index of the point - it does not set selection
     // or cause a redraw - you probably don't want to use this
     // as a handler
     function pickPoint(evt) {
         let [x,y] = mousePosition(evt);
-    
+
         // nothing is selected, and minimum distance
         let sel=-1;
         let minD=circRadiusSq;
@@ -81,14 +84,14 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius=10,chang
         });
         return sel;
     }
-   
-    // mouse click - perform dragging 
+
+    // mouse click - perform dragging
     // if shift is held down, make a new point
     // if ctrl or meta is held down, delete the point
     // we need to do meta for the mac, where ctrl means something
     /**
-     * 
-     * @param {MouseEvent} evt 
+     *
+     * @param {MouseEvent} evt
      */
     function mouseDown(evt) {
         if (evt.shiftKey) {
@@ -101,9 +104,9 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius=10,chang
                 let p2 = (select+1) % thePoints.length;
                 let newPt = [(thePoints[p1][0]+thePoints[p2][0])/2,
                 (thePoints[p1][1]+thePoints[p2][1])/2];
-                thePoints.splice(p1+1,0,newPt);           
+                thePoints.splice(p1+1,0,newPt);
             } else {
-                // easy part is where, 
+                // easy part is where,
                 // the harder part is what position
                 let xy = mousePosition(evt);
                 thePoints.push(xy);
@@ -126,7 +129,7 @@ export function draggablePoints(canvas, pointList, redraw, circleRadius=10,chang
             if (select >= 0) {
                 dragging = select;
                 doRedraw();
-            }    
+            }
         }
     }
     function endDrag(evt) {
