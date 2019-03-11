@@ -10,15 +10,7 @@
  * expected to modify this file.
  */
 
- // useful utility function for creating HTML
-/**
- * https://plainjs.com/javascript/manipulation/insert-an-element-after-or-before-another-32/
- * @param {HTMLElement} el 
- * @param {HTMLElement} referenceNode 
- */
-function insertAfter(el, referenceNode) {
-    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-}
+import {insertAfter} from "./inputHelpers.js";
 
 /**
  * the main thing is implemented as a class in case you want access to everything
