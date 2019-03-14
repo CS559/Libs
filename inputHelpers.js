@@ -44,7 +44,7 @@ export function insertElement(el, where=undefined) {
 /**
  * 
  * @param {String} str 
- * @param {Object | HTMLElement} [where] 
+ * @param {WhereSpec} [where] 
  * @param {String} [label] 
  */
 export function makeCheckbox(str,where,label=undefined) {
@@ -120,4 +120,22 @@ export function makeOutbox(str,where, label) {
 
     return text;
 
+}
+/**
+ * 
+ * @param {Array<String>} values 
+ * @param {WhereSpec} where 
+ * @param {string} [initial] 
+ */
+export function makeSelect(values, where, initial) {
+    let select = document.createElement("select");
+    values.forEach(function(ch) {
+        let opt = document.createElement("option");
+        opt.value = ch;
+        opt.text = ch;
+        select.add(opt);
+        if (initial) select.value = initial;
+    });
+    insertElement(select,where);
+    return select;
 }
