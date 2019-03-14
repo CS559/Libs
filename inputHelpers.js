@@ -13,7 +13,19 @@ export function insertAfter(el, referenceNode) {
 }
 
 // allow for flexible insertion
-export function insertElement(el, where) {
+/**
+ * Note: an HTMLElement works to meet WhereSpec since it has appendChild
+ * @typedef WhereSpec
+ * @property [after]
+ * @property [end]
+ * @property [appendChild]
+ */
+/**
+ * 
+ * @param {HTMLElement} el 
+ * @param {WhereSpec} [where] 
+ */
+export function insertElement(el, where=undefined) {
     if (!where) {
         console.log("Warning: appending element to end of body because WHERE can't figure out a better place");
         document.body.appendChild(el);
