@@ -139,3 +139,87 @@ export function makeSelect(values, where, initial) {
     insertElement(select,where);
     return select;
 }
+
+export class LabelSlider {
+    /**
+     * 
+     * @param {string} name 
+     * @param {Object} params
+     * @param {number} [params.width = 150]
+     * @param {number} [params.min = -1]
+     * @param {number} [params.max = -1]
+     * @param {number} [params.step = .1]
+     * @param {number} [params.initial = 0]
+     * @param {function} [params.oninput]
+     * @param {WhereSpec} [params.where]
+     */
+    constructor(name,params) {
+        console.log(params);
+        // these values will become parameters at some point
+        let min = params.min || 0;
+        let max = params.max || 1;
+        let step =params.step || 0.1;
+        let initial = params.initial || 0;
+
+        let width = params.width | 250;
+
+        this.div = document.createElement("div");
+
+        this.label = document.createElement("label");
+        this.label.setAttribute("for",name+"-text");
+        this.label.setAttribute("style","padding:5px; width:40px; display:inline-block;");
+        this.label.innerText = name;
+        this.div.appendChild(this.label);
+
+        this.text = document.createElement("input");
+        this.div.appendChild(this.text);
+        this.text.id = name+"-text";
+        this.text.setAttribute("type","text");
+        this.text.setAttribute("style","width:50px");
+        this.text.setAttribute("readonly","1");
+
+        this.range = document.createElement("input");
+        this.div.appendChild(this.range);
+        this.range.id = name + "-slider";
+        this.range.setAttribute("type","range");
+        this.range.style.width = String(width - 50 )+"px";
+        // give default values for range
+        this.setRange(min,max,step);
+
+        this.range.value = String(initial);
+
+        this.oninput = params.oninput;
+
+        let self=this;
+        function fupdate() {
+            self.update();
+        }
+        this.range.oninput = fupdate;
+        this.update();
+
+        if ("where" in params) {
+            insertElement(this.div,params.where);
+        }
+    }
+
+    setRange(min,max,step) {
+        console.log(min,max,step);
+        this.range.setAttribute("min",String(min));
+        this.range.setAttribute("max",String(max));
+        this.range.setAttribute("step",String(step));
+    }
+
+    update() {
+        this.text.value = this.range.value;
+        if (this.oninput) this.oninput(this);
+    }
+
+    value() {
+        return Number(this.range.value);
+    }
+
+    set(val) {
+        this.range.value = String(val);
+        this.update();
+    }
+}
