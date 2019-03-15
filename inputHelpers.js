@@ -140,12 +140,54 @@ export function makeSelect(values, where, initial) {
     return select;
 }
 
+/**
+ * just stick a break in (to start a new line)
+ */
+export function makeBreak(where) {
+    let br=document.createElement("BR");
+    insertElement(br,where);
+    return br;
+}
+
+
+/**
+ * Create a Heading and stick it into the DOM
+ * 
+ * extra control to get rid of space above/below
+ * 
+ * @param {string} text 
+ * @param {WhereSpec} where 
+ * @param {Object} params
+ * @property {number} [top]
+ * @property {number} [bottom]
+ * @property {boolean} [tight]
+ * @property {number} [level=3]
+ */
+export function makeHead(text,where,params={}) {
+    let style = "";
+    if ("top" in params) style += `margin-top:${params.top}px;`;
+    if ("bottom" in params) style += `margin-bottom:${params.bottom}px;`;
+    if ("tight" in params) style += `margin-top:0;margin-bottom:0`;
+    let level = params.level || 3;
+    let htype = "H"+level;
+    let head = document.createElement(htype);
+    head.setAttribute("style",style);
+    head.innerText = text;
+    insertElement(head,where);
+    return head;
+}
+
+/**
+ * Label Slider is a class (since you might want to access the component things)
+ * 
+ * This makes a slider and a corresponding label and textbox for the value
+ */
 export class LabelSlider {
     /**
      * 
      * @param {string} name 
      * @param {Object} params
-     * @param {number} [params.width = 150]
+     * @param {number} [params.width = 250]
      * @param {number} [params.min = -1]
      * @param {number} [params.max = -1]
      * @param {number} [params.step = .1]
@@ -182,7 +224,7 @@ export class LabelSlider {
         this.div.appendChild(this.range);
         this.range.id = name + "-slider";
         this.range.setAttribute("type","range");
-        this.range.setAttribute("style","width:${width-100}px");
+        this.range.setAttribute("style",`width:${width-120}px`);
         // give default values for range
         this.setRange(min,max,step);
 
