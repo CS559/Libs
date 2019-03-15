@@ -175,14 +175,14 @@ export class LabelSlider {
         this.div.appendChild(this.text);
         this.text.id = name+"-text";
         this.text.setAttribute("type","text");
-        this.text.setAttribute("style","width:50px");
+        this.text.setAttribute("style","width:40px");
         this.text.setAttribute("readonly","1");
 
         this.range = document.createElement("input");
         this.div.appendChild(this.range);
         this.range.id = name + "-slider";
         this.range.setAttribute("type","range");
-        this.range.style.width = String(width - 50 )+"px";
+        this.range.setAttribute("style","width:${width-100}px");
         // give default values for range
         this.setRange(min,max,step);
 
