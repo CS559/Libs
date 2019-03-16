@@ -12,15 +12,19 @@ export function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
 }
 
-// allow for flexible insertion
 /**
+ * allow for flexible insertion
+ * 
  * Note: an HTMLElement works to meet WhereSpec since it has appendChild
  * @typedef WhereSpec
  * @property [after]
  * @property [end]
  * @property [appendChild]
- */
+ * /
+ 
 /**
+ * insert an element into the DOM - uses a WhereSpec to figure out where to
+ * put it
  * 
  * @param {HTMLElement} el 
  * @param {WhereSpec} [where] 
