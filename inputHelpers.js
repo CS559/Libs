@@ -221,7 +221,6 @@ export class LabelSlider {
         this.range.id = name + "-slider";
         this.range.setAttribute("type","range");
         this.range.setAttribute("style",`width:${width-120}px`);
-        console.log(`width:${width-120}px`);
         // give default values for range
         this.setRange(min,max,step);
 
