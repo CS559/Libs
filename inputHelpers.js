@@ -85,8 +85,6 @@ export function makeBoxDiv(params,where) {
 
     if (params.width) style += `; width:${Number(params.width) - 2*params.margin}px`;
 
-    console.log(style);
-
     let div = document.createElement("div");
     div.setAttribute("style",style);
     insertElement(div,where);
@@ -196,14 +194,12 @@ export class LabelSlider {
      * @param {WhereSpec} [params.where]
      */
     constructor(name,params) {
-        console.log(params);
-        // these values will become parameters at some point
         let min = params.min || 0;
         let max = params.max || 1;
         let step =params.step || 0.1;
         let initial = params.initial || 0;
 
-        let width = params.width | 250;
+        let width = params.width || 250;
 
         this.div = document.createElement("div");
 
@@ -225,6 +221,7 @@ export class LabelSlider {
         this.range.id = name + "-slider";
         this.range.setAttribute("type","range");
         this.range.setAttribute("style",`width:${width-120}px`);
+        console.log(`width:${width-120}px`);
         // give default values for range
         this.setRange(min,max,step);
 
@@ -245,7 +242,6 @@ export class LabelSlider {
     }
 
     setRange(min,max,step) {
-        console.log(min,max,step);
         this.range.setAttribute("min",String(min));
         this.range.setAttribute("max",String(max));
         this.range.setAttribute("step",String(step));
