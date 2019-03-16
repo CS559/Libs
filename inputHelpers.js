@@ -251,7 +251,7 @@ export class LabelSlider {
     }
 
     update() {
-        this.text.value = this.range.value;
+        this.text.value = Number(this.range.value).toFixed(2);
         if (this.oninput) this.oninput(this);
     }
 
