@@ -179,6 +179,13 @@ export function makeHead(text,where,params={}) {
     return head;
 }
 
+export function makeParagraph(text,where) {
+    let par = document.createElement("p");
+    par.innerText = text;
+    insertElement(par,where);
+    return par;
+}
+
 /**
  * Label Slider is a class (since you might want to access the component things)
  * 
