@@ -128,6 +128,7 @@ export function makeOutbox(str,where, label) {
  * @param {Array<String>} values 
  * @param {WhereSpec} where 
  * @param {string} [initial] 
+ * @returns {HTMLSelectElement}
  */
 export function makeSelect(values, where, initial) {
     let select = document.createElement("select");
