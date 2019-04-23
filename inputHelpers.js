@@ -187,6 +187,13 @@ export function makeParagraph(text,where) {
     return par;
 }
 
+export function makeSpan(text,where) {
+    let par = document.createElement("span");
+    par.innerText = text;
+    insertElement(par,where);
+    return par;
+}
+
 /**
  * Label Slider is a class (since you might want to access the component things)
  * 
